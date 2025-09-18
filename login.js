@@ -1,0 +1,11 @@
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    // Basit kontrol: admin/admin123
+    if (username === 'admin' && password === 'admin123') {
+        window.location.href = 'admin-panel.html'; // Giriş başarılıysa panel sayfasına yönlendir
+    } else {
+        document.getElementById('error-message').textContent = 'Kullanıcı adı veya parola yanlış!';
+    }
+});

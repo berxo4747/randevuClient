@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Paneli - Randevu Alanlar</title>
+    <link rel="stylesheet" href="login.css">
+    <style>
+        body {
+            background: #f4f6fb;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        .admin-header {
+            background: #2d3748;
+            color: #fff;
+            padding: 18px 32px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .admin-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+        .admin-sidebar {
+            width: 220px;
+            background: #fff;
+            border-right: 1px solid #e2e8f0;
+            padding: 32px 0;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.03);
+        }
+        .admin-sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .admin-sidebar li {
+            margin-bottom: 18px;
+        }
+        .admin-sidebar a {
+            color: #2d3748;
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 10px 24px;
+            display: block;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+        .admin-sidebar a.active, .admin-sidebar a:hover {
+            background: #e2e8f0;
+        }
+        .admin-content {
+            flex: 1;
+            padding: 40px 48px;
+        }
+        .login-container {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+            padding: 32px;
+            margin-top: 0;
+        }
+        table {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        th {
+            background: #edf2f7 !important;
+        }
+        button {
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-header">Admin Paneli</div>
+    <div class="admin-layout">
+        <nav class="admin-sidebar">
+            <ul>
+                <li><a href="randevu-alanlar.html" class="active">Randevu Alanlar</a></li>
+                <li><a href="duzenle.html">Sayfa Düzenle</a></li>
+                <li><a href="#">Kullanıcılar</a></li>
+                <li><a href="#">Ayarlar</a></li>
+            </ul>
+        </nav>
+        <main class="admin-content">
+            <div class="login-container">
+                <h2>Randevu Alanlar</h2>
+                <form id="addAppointmentForm" style="margin-bottom:20px;display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;">
+                    <input type="date" id="apptDate" required placeholder="Randevu Tarihi">
+                    <input type="text" id="apptCountry" required placeholder="Gideceği Ülke">
+                    <input type="text" id="apptCenter" required placeholder="Başvuru Merkezi">
+                    <input type="text" id="apptName" required placeholder="Adı Soyadı">
+                    <button type="submit" style="grid-column:span 4;background:#007bff;color:#fff;border:none;padding:10px;border-radius:4px;">Ekle</button>
+                </form>
+                <table id="table-appointments" style="width:100%;border-collapse:collapse;margin-top:10px;">
+                    <thead>
+                        <tr style="background:#f0f2f5;">
+                            <th style="border:1px solid #ccc;padding:8px;">Randevu Tarihi</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Gideceği Ülke</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Başvuru Merkezi</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Adı Soyadı</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Düzenle</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Sil</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+<!-- Düzenleme Modalı -->
+<div id="editModal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.4);align-items:center;justify-content:center;z-index:999;">
+  <div style="background:#fff;padding:30px;border-radius:8px;min-width:350px;max-width:90vw;">
+    <h3>Randevu Düzenle</h3>
+    <form id="editForm">
+      <label>Randevu Tarihi:</label><input type="date" id="editApptDate" required><br>
+      <label>Gideceği Ülke:</label><input type="text" id="editApptCountry" required><br>
+      <label>Başvuru Merkezi:</label><input type="text" id="editApptCenter" required><br>
+      <label>Adı Soyadı:</label><input type="text" id="editApptName" required><br>
+      <button type="submit">Kaydet</button>
+      <button type="button" id="closeEditModal" style="background:#dc3545;color:#fff;">Kapat</button>
+    </form>
+  </div>
+</div>
+
+<script>
+// Ekle
+document.getElementById('addAppointmentForm').onsubmit = function(e){
+    e.preventDefault();
+    var tbody = document.querySelector('#table-appointments tbody');
+    var tr = document.createElement('tr');
+    tr.innerHTML = `
+        <td style='border:1px solid #ccc;padding:8px;'>${document.getElementById('apptDate').value}</td>
+        <td style='border:1px solid #ccc;padding:8px;'>${document.getElementById('apptCountry').value}</td>
+        <td style='border:1px solid #ccc;padding:8px;'>${document.getElementById('apptCenter').value}</td>
+        <td style='border:1px solid #ccc;padding:8px;'>${document.getElementById('apptName').value}</td>
+        <td style='border:1px solid #ccc;padding:8px;'>
+            <button class='editBtn'>Düzenle</button>
+            <button class='printBtn' style='margin-left:5px;'>Yazdır</button>
+        </td>
+        <td style='border:1px solid #ccc;padding:8px;'><button class='deleteBtn'>Sil</button></td>
+    `;
+    tbody.appendChild(tr);
+    document.getElementById('addAppointmentForm').reset();
+};
+
+// Düzenle
+document.getElementById('table-appointments').addEventListener('click', function(e){
+    if(e.target.classList.contains('editBtn')){
+        var tr = e.target.closest('tr');
+        var tds = tr.querySelectorAll('td');
+        document.getElementById('editApptDate').value = tds[0].textContent;
+        document.getElementById('editApptCountry').value = tds[1].textContent;
+        document.getElementById('editApptCenter').value = tds[2].textContent;
+        document.getElementById('editApptName').value = tds[3].textContent;
+        document.getElementById('editModal').style.display = 'flex';
+        window._editingTr = tr;
+    }
+    // Yazdır
+    if(e.target.classList.contains('printBtn')){
+        var tr = e.target.closest('tr');
+        var tds = tr.querySelectorAll('td');
+        var printContent = `Randevu Tarihi: ${tds[0].textContent}\nGideceği Ülke: ${tds[1].textContent}\nBaşvuru Merkezi: ${tds[2].textContent}\nAdı Soyadı: ${tds[3].textContent}`;
+        var win = window.open('', '', 'width=600,height=400');
+        win.document.write('<pre style="font-size:18px;">' + printContent + '</pre>');
+        win.document.close();
+        win.print();
+    }
+    // Sil
+    if(e.target.classList.contains('deleteBtn')){
+        var tr = e.target.closest('tr');
+        tr.remove();
+    }
+});
+document.getElementById('closeEditModal').onclick = function(){
+    document.getElementById('editModal').style.display = 'none';
+    window._editingTr = null;
+};
+document.getElementById('editForm').onsubmit = function(e){
+    e.preventDefault();
+    var tr = window._editingTr;
+    if(tr){
+        var tds = tr.querySelectorAll('td');
+        tds[0].textContent = document.getElementById('editApptDate').value;
+        tds[1].textContent = document.getElementById('editApptCountry').value;
+        tds[2].textContent = document.getElementById('editApptCenter').value;
+        tds[3].textContent = document.getElementById('editApptName').value;
+        document.getElementById('editModal').style.display = 'none';
+        window._editingTr = null;
+    }
+};
+</script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Paneli - Düzenle</title>
+    <link rel="stylesheet" href="login.css">
+    <style>
+        .editor-container { max-width: 700px; margin: 40px auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .editor-label { font-weight: bold; margin-bottom: 8px; display: block; }
+        .editor-textarea { width: 100%; min-height: 200px; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 16px; }
+        .editor-actions { margin-top: 16px; text-align: right; }
+        .editor-actions button { background: #007bff; color: #fff; border: none; padding: 10px 18px; border-radius: 4px; font-size: 16px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="editor-container">
+        <h2>Aktarılan Müşteri Listesi</h2>
+        <table id="customerTable" style="width:100%;border-collapse:collapse;margin-top:20px;">
+            <thead>
+                <tr style="background:#f0f2f5;">
+                    <th style="border:1px solid #ccc;padding:8px;">Adı</th>
+                    <th style="border:1px solid #ccc;padding:8px;">Soyadı</th>
+                    <th style="border:1px solid #ccc;padding:8px;">Cinsiyeti</th>
+                    <th style="border:1px solid #ccc;padding:8px;">Ülke</th>
+                    <th style="border:1px solid #ccc;padding:8px;">Doğum Tarihi</th>
+                    <th style="border:1px solid #ccc;padding:8px;">Pasaport No</th>
+                    <th style="border:1px solid #ccc;padding:8px;">Pasaport SKT</th>
+                    <th style="border:1px solid #ccc;padding:8px;">Telefon</th>
+                    <th style="border:1px solid #ccc;padding:8px;">Mail</th>
+                    <th style="border:1px solid #ccc;padding:8px;">Gitmek İstediği Ülke</th>
+                    <th style="border:1px solid #ccc;padding:8px;">Kategori</th>
+                    <th style="border:1px solid #ccc;padding:8px;">Referans</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <script>
+    window.onload = function() {
+        var customer = localStorage.getItem('lastCustomer');
+        var tbody = document.querySelector('#customerTable tbody');
+        if (customer) {
+            var obj = JSON.parse(customer);
+            var tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td style='border:1px solid #ccc;padding:8px;'>${obj.firstName}</td>
+                <td style='border:1px solid #ccc;padding:8px;'>${obj.lastName}</td>
+                <td style='border:1px solid #ccc;padding:8px;'>${obj.gender}</td>
+                <td style='border:1px solid #ccc;padding:8px;'>${obj.country}</td>
+                <td style='border:1px solid #ccc;padding:8px;'>${obj.birthDate}</td>
+                <td style='border:1px solid #ccc;padding:8px;'>${obj.passportNumber}</td>
+                <td style='border:1px solid #ccc;padding:8px;'>${obj.passportExpiry}</td>
+                <td style='border:1px solid #ccc;padding:8px;'>${obj.phone}</td>
+                <td style='border:1px solid #ccc;padding:8px;'>${obj.email}</td>
+                <td style='border:1px solid #ccc;padding:8px;'>${obj.destinationCountry}</td>
+                <td style='border:1px solid #ccc;padding:8px;'>${obj.category}</td>
+                <td style='border:1px solid #ccc;padding:8px;'>${obj.reference}</td>
+            `;
+            tbody.appendChild(tr);
+        } else {
+            var tr = document.createElement('tr');
+            tr.innerHTML = `<td colspan='12' style='text-align:center;padding:16px;'>Aktarılan müşteri bulunamadı.</td>`;
+            tbody.appendChild(tr);
+        }
+    }
+    </script>
+</body>
+</html>

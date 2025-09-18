@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Bekleyenler Listesi</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="login-container" style="margin-top:40px;">
+        <h2>Randevu Alanlar</h2>
+        <table id="table-appointments" style="width:100%;border-collapse:collapse;margin-top:10px;">
+            <thead>
+                <tr style="background:#f0f2f5;">
+                    <th style="border:1px solid #ccc;padding:8px;">Randevu Tarihi</th>
+                    <th style="border:1px solid #ccc;padding:8px;">Gideceği Ülke</th>
+                    <th style="border:1px solid #ccc;padding:8px;">Başvuru Merkezi</th>
+                    <th style="border:1px solid #ccc;padding:8px;">Adı Soyadı</th>
+                    <th style="border:1px solid #ccc;padding:8px;">Pasaport no</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Örnek veri
+                <tr>
+                    <td style='border:1px solid #ccc;padding:8px;'>2025-09-25</td>
+                    <td style='border:1px solid #ccc;padding:8px;'>Almanya</td>
+                    <td style='border:1px solid #ccc;padding:8px;'>İstanbul</td>
+                    <td style='border:1px solid #ccc;padding:8px;'>Ali Yılmaz</td>
+                </tr>
+                -->
+            </tbody>
+        </table>
+    </div>
+    <div class="login-container">
+        <h2>Bekleyenler Listesi</h2>
+        <button onclick="window.print()" style="margin-bottom:20px;padding:10px 20px;background:#28a745;color:#fff;border:none;border-radius:4px;cursor:pointer;">Yazdır</button>
+    <div style="display:flex;gap:20px;flex-wrap:wrap;">
+        <!-- Kutucuk görünümü -->
+        <div style="display:flex;gap:20px;flex-wrap:wrap;margin-top:30px;">
+            <div style="flex:1;min-width:350px;">
+                
+                <div id="cards-france"></div>
+            </div>
+            <div style="flex:1;min-width:350px;">
+                
+                <div id="cards-holland"></div>
+            </div>
+            <div style="flex:1;min-width:350px;">
+                
+                <div id="cards-poland"></div>
+            </div>
+            <div style="flex:1;min-width:350px;">
+                
+                <div id="cards-bulgaria"></div>
+            </div>
+        </div>
+<style>
+.card {
+    background: #f8f9fa;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+}
+.card label {
+    font-weight: bold;
+    margin-right: 6px;
+}
+@media print {
+    button, #editModal { display: none !important; }
+    body { background: #fff !important; }
+}
+</style>
+<script>
+// Tablo verilerini kutucuklara aktar (örnek veri için)
+function tableToCards(tableId, cardsId) {
+    var tbody = document.querySelector('#' + tableId + ' tbody');
+    var cardsDiv = document.getElementById(cardsId);
+    if (!tbody || !cardsDiv) return;
+    cardsDiv.innerHTML = '';
+    Array.from(tbody.children).forEach(function(tr) {
+        var tds = tr.querySelectorAll('td');
+        if (tds.length < 12) return;
+        var html = `<div class='card'>
+            <div><label>Adı:</label> ${tds[0].textContent}</div>
+            <div><label>Soyadı:</label> ${tds[1].textContent}</div>
+            <div><label>Cinsiyeti:</label> ${tds[2].textContent}</div>
+            <div><label>Ülke:</label> ${tds[3].textContent}</div>
+            <div><label>Doğum Tarihi:</label> ${tds[4].textContent}</div>
+            <div><label>Pasaport No:</label> ${tds[5].textContent}</div>
+            <div><label>Pasaport SKT:</label> ${tds[6].textContent}</div>
+            <div><label>Telefon:</label> ${tds[7].textContent}</div>
+            <div><label>Mail:</label> ${tds[8].textContent}</div>
+            <div><label>Gitmek İstediği Ülke:</label> ${tds[9].textContent}</div>
+            <div><label>Kategori:</label> ${tds[10].textContent}</div>
+            <div><label>Referans:</label> ${tds[11].textContent}</div>
+        </div>`;
+        cardsDiv.innerHTML += html;
+    });
+}
+function updateAllCards() {
+    tableToCards('table-france', 'cards-france');
+    tableToCards('table-holland', 'cards-holland');
+    tableToCards('table-poland', 'cards-poland');
+    tableToCards('table-bulgaria', 'cards-bulgaria');
+}
+setInterval(updateAllCards, 1000);
+</script>
+            <div style="flex:1;min-width:350px;">
+                <h4>FRANSA</h4>
+                <table id="table-france" style="width:100%;border-collapse:collapse;margin-top:10px;">
+                    <thead>
+                        <tr style="background:#f0f2f5;">
+                            <th style="border:1px solid #ccc;padding:8px;">Adı</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Soyadı</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Cinsiyeti</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Ülke</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Doğum Tarihi</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Pasaport No</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Pasaport SKT</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Telefon</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Mail</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Gitmek İstediği Ülke</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Kategori</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Referans</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Düzenle</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <!-- Örnek satır: 
+                    <tr>
+                        <td>Ali</td><td>Yılmaz</td><td>Erkek</td><td>Türkiye</td><td>1990-01-01</td><td>123456</td><td>2030-01-01</td><td>5551234567</td><td>ali@mail.com</td><td>FRANSA</td><td>TIR ŞOFÖRÜ</td><td>Referans</td>
+                        <td><button class='editBtn'>Düzenle</button></td>
+                    </tr>
+                    -->
+                    </tbody>
+                </table>
+            </div>
+            <div style="flex:1;min-width:350px;">
+                <h4>HOLLANDA</h4>
+                <table id="table-holland" style="width:100%;border-collapse:collapse;margin-top:10px;">
+                    <thead>
+                        <tr style="background:#f0f2f5;">
+                            <th style="border:1px solid #ccc;padding:8px;">Adı</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Soyadı</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Cinsiyeti</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Ülke</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Doğum Tarihi</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Pasaport No</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Pasaport SKT</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Telefon</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Mail</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Gitmek İstediği Ülke</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Kategori</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Referans</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Düzenle</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div style="flex:1;min-width:350px;">
+                <h4>POLONYA</h4>
+                <table id="table-poland" style="width:100%;border-collapse:collapse;margin-top:10px;">
+                    <thead>
+                        <tr style="background:#f0f2f5;">
+                            <th style="border:1px solid #ccc;padding:8px;">Adı</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Soyadı</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Cinsiyeti</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Ülke</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Doğum Tarihi</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Pasaport No</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Pasaport SKT</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Telefon</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Mail</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Gitmek İstediği Ülke</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Kategori</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Referans</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Düzenle</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div style="flex:1;min-width:350px;">
+                <h4>BULGARİSTAN</h4>
+                <table id="table-bulgaria" style="width:100%;border-collapse:collapse;margin-top:10px;">
+                    <thead>
+                        <tr style="background:#f0f2f5;">
+                            <th style="border:1px solid #ccc;padding:8px;">Adı</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Soyadı</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Cinsiyeti</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Ülke</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Doğum Tarihi</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Pasaport No</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Pasaport SKT</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Telefon</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Mail</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Gitmek İstediği Ülke</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Kategori</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Referans</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Düzenle</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+<!-- Düzenleme Formu -->
+<div id="editModal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.4);align-items:center;justify-content:center;z-index:999;">
+  <div style="background:#fff;padding:30px;border-radius:8px;min-width:350px;max-width:90vw;">
+    <h3>Bilgileri Düzenle</h3>
+    <form id="editForm">
+      <label>Adı:</label><input type="text" id="editFirstName" required><br>
+      <label>Soyadı:</label><input type="text" id="editLastName" required><br>
+      <label>Cinsiyeti:</label><input type="text" id="editGender" required><br>
+      <label>Ülke:</label><input type="text" id="editCountry" required><br>
+      <label>Doğum Tarihi:</label><input type="date" id="editBirthDate" required><br>
+      <label>Pasaport No:</label><input type="text" id="editPassportNumber" required><br>
+      <label>Pasaport SKT:</label><input type="date" id="editPassportExpiry" required><br>
+      <label>Telefon:</label><input type="tel" id="editPhone" required><br>
+      <label>Mail:</label><input type="email" id="editEmail" required><br>
+      <label>Gitmek İstediği Ülke:</label><input type="text" id="editDestinationCountry" required><br>
+      <label>Kategori:</label><input type="text" id="editCategory" required><br>
+      <label>Referans:</label><input type="text" id="editReference"><br>
+      <button type="submit">Kaydet</button>
+      <button type="button" id="closeEditModal" style="background:#dc3545;color:#fff;">Kapat</button>
+    </form>
+  </div>
+</div>
+
+<script>
+// Düzenle butonlarını dinle
+document.querySelectorAll('table').forEach(function(table){
+  table.addEventListener('click', function(e){
+    if(e.target.classList.contains('editBtn')){
+      var tr = e.target.closest('tr');
+      var tds = tr.querySelectorAll('td');
+      document.getElementById('editFirstName').value = tds[0].textContent;
+      document.getElementById('editLastName').value = tds[1].textContent;
+      document.getElementById('editGender').value = tds[2].textContent;
+      document.getElementById('editCountry').value = tds[3].textContent;
+      document.getElementById('editBirthDate').value = tds[4].textContent;
+      document.getElementById('editPassportNumber').value = tds[5].textContent;
+      document.getElementById('editPassportExpiry').value = tds[6].textContent;
+      document.getElementById('editPhone').value = tds[7].textContent;
+      document.getElementById('editEmail').value = tds[8].textContent;
+      document.getElementById('editDestinationCountry').value = tds[9].textContent;
+      document.getElementById('editCategory').value = tds[10].textContent;
+      document.getElementById('editReference').value = tds[11].textContent;
+      document.getElementById('editModal').style.display = 'flex';
+      window._editingTr = tr;
+    }
+  });
+});
+document.getElementById('closeEditModal').onclick = function(){
+  document.getElementById('editModal').style.display = 'none';
+  window._editingTr = null;
+};
+document.getElementById('editForm').onsubmit = function(e){
+  e.preventDefault();
+  var tr = window._editingTr;
+  if(tr){
+    var tds = tr.querySelectorAll('td');
+    tds[0].textContent = document.getElementById('editFirstName').value;
+    tds[1].textContent = document.getElementById('editLastName').value;
+    tds[2].textContent = document.getElementById('editGender').value;
+    tds[3].textContent = document.getElementById('editCountry').value;
+    tds[4].textContent = document.getElementById('editBirthDate').value;
+    tds[5].textContent = document.getElementById('editPassportNumber').value;
+    tds[6].textContent = document.getElementById('editPassportExpiry').value;
+    tds[7].textContent = document.getElementById('editPhone').value;
+    tds[8].textContent = document.getElementById('editEmail').value;
+    tds[9].textContent = document.getElementById('editDestinationCountry').value;
+    tds[10].textContent = document.getElementById('editCategory').value;
+    tds[11].textContent = document.getElementById('editReference').value;
+    document.getElementById('editModal').style.display = 'none';
+    window._editingTr = null;
+  }
+};
+</script>
+</body>
+</html>

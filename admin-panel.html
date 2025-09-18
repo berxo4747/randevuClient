@@ -1,0 +1,178 @@
+    <div style="display:flex;gap:10px;margin-bottom:20px;">
+        <a href="bekleyenler.html" id="pendingListBtn" style="display:inline-block;padding:10px 20px;background:#007bff;color:#fff;text-decoration:none;border-radius:4px;">Bekleyenler Listesi</a>
+        <a href="randevu-alanlar.html" id="appointmentsBtn" style="display:inline-block;padding:10px 20px;background:#28a745;color:#fff;text-decoration:none;border-radius:4px;">Randevu Alanlar</a>
+    </div>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Paneli</title>
+    <link rel="stylesheet" href="login.css">
+    <style>
+        body {
+            background: #f4f6fb;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        .admin-header {
+            background: #2d3748;
+            color: #fff;
+            padding: 18px 32px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .admin-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+        .admin-sidebar {
+            width: 220px;
+            background: #fff;
+            border-right: 1px solid #e2e8f0;
+            padding: 32px 0;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.03);
+        }
+        .admin-sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .admin-sidebar li {
+            margin-bottom: 18px;
+        }
+        .admin-sidebar a {
+            color: #2d3748;
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 10px 24px;
+            display: block;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+        .admin-sidebar a.active, .admin-sidebar a:hover {
+            background: #e2e8f0;
+        }
+        .admin-content {
+            flex: 1;
+            padding: 40px 48px;
+        }
+        .login-container {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+            padding: 32px;
+            margin-top: 0;
+        }
+        table {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        th {
+            background: #edf2f7 !important;
+        }
+        button {
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-header">Admin Paneli</div>
+    <div class="admin-layout">
+        <nav class="admin-sidebar">
+            <ul>
+                <li><a href="admin-panel.html" class="active">Admin Paneli</a></li>
+                <li><a href="randevu-alanlar.html">Randevu Alanlar</a></li>
+                <li><a href="duzenle.html">BEKLEYENLER LİSTESİ</a></li>
+                <li><a href="#">Kullanıcılar</a></li>
+                <li><a href="#">Ayarlar</a></li>
+            </ul>
+        </nav>
+        <main class="admin-content">
+            <div class="login-container">
+                <h2>Admin Paneline Hoşgeldiniz</h2>
+                <p>Başarılı giriş yaptınız!</p>
+                <hr>
+                <button id="showFormBtn" style="margin-bottom:15px;">Yeni Müşteri Kaydı</button>
+                <form id="addCustomerForm" style="margin-bottom:20px;display:grid;grid-template-columns:1fr 1fr;gap:10px;display:none;">
+                        <button type="button" id="closeFormBtn" style="grid-column:span 2;background:#dc3545;color:#fff;">Kapat</button>
+                        <label for="firstName">Adı:</label>
+                        <input type="text" id="firstName" name="firstName" required>
+                        <label for="lastName">Soyadı:</label>
+                        <input type="text" id="lastName" name="lastName" required>
+                        <label for="gender">Cinsiyeti:</label>
+                        <select id="gender" name="gender" required>
+                            <option value="">Seçiniz</option>
+                            <option value="Erkek">Erkek</option>
+                            <option value="Kadın">Kadın</option>
+                        </select>
+                        <label for="country">Ülke:</label>
+                        <input type="text" id="country" name="country" required>
+                        <label for="birthDate">Doğum Tarihi:</label>
+                        <input type="date" id="birthDate" name="birthDate" required>
+                        <label for="passportNumber">Pasaport Numarası:</label>
+                        <input type="text" id="passportNumber" name="passportNumber" required>
+                        <label for="passportExpiry">Pasaport Son Kullanma Tarihi:</label>
+                        <input type="date" id="passportExpiry" name="passportExpiry" required>
+                        <label for="phone">Telefon:</label>
+                        <input type="tel" id="phone" name="phone" required>
+                        <label for="email">Mail:</label>
+                        <input type="email" id="email" name="email" required>
+                        <label for="destinationCountry">Gitmek İstediği Ülke:</label>
+                        <input type="text" id="destinationCountry" name="destinationCountry" required>
+                        <label for="category">Hangi Kategori:</label>
+                        <input type="text" id="category" name="category" value="TIR ŞOFÖRÜ" required>
+                        <label for="reference">Referans:</label>
+                        <input type="text" id="reference" name="reference">
+                        <button type="submit" style="grid-column:span 2;">Kaydet</button>
+                    </form>
+                <script>
+                document.getElementById('showFormBtn').addEventListener('click', function() {
+                    document.getElementById('addCustomerForm').style.display = 'grid';
+                    document.getElementById('showFormBtn').style.display = 'none';
+                });
+                document.getElementById('closeFormBtn').addEventListener('click', function() {
+                    document.getElementById('addCustomerForm').style.display = 'none';
+                    document.getElementById('showFormBtn').style.display = 'inline-block';
+                });
+                document.getElementById('addCustomerForm').addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    var customer = {
+                        firstName: document.getElementById('firstName').value,
+                        lastName: document.getElementById('lastName').value,
+                        gender: document.getElementById('gender').value,
+                        country: document.getElementById('country').value,
+                        birthDate: document.getElementById('birthDate').value,
+                        passportNumber: document.getElementById('passportNumber').value,
+                        passportExpiry: document.getElementById('passportExpiry').value,
+                        phone: document.getElementById('phone').value,
+                        email: document.getElementById('email').value,
+                        destinationCountry: document.getElementById('destinationCountry').value,
+                        category: document.getElementById('category').value,
+                        reference: document.getElementById('reference').value
+                    };
+                    localStorage.setItem('lastCustomer', JSON.stringify(customer));
+                    alert('Müşteri kaydedildi ve Düzenle sayfasına aktarılabilir!');
+                    document.getElementById('addCustomerForm').reset();
+                    document.getElementById('addCustomerForm').style.display = 'none';
+                    document.getElementById('showFormBtn').style.display = 'inline-block';
+                });
+                </script>
+            </div>
+        </main>
+    </div>
+        </script>
+        
+                    <thead>
+                        <tr style="background:#f0f2f5;">
+                            <th style="border:1px solid #ccc;padding:8px;">Adı</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Soyadı</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Cinsiyeti</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Ülke</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Doğum Tarihi</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Pasaport No</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Pasaport SKT</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Telefon</th>
+                            <th style="border:1px solid #ccc;padding:8px;">Mail</th>
+                            <!-- Bekleyenler bölümü kaldırıldı -->
+                            <th style="border:1px solid #ccc;padding:8px;">Kategori</th>
