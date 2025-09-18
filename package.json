@@ -1,0 +1,14 @@
+{
+  "name": "randevu-client",
+  "version": "1.0.0",
+  "description": "A simple client application for appointment booking that serves HTML files on localhost",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["appointment", "booking", "client", "localhost"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {}
+}

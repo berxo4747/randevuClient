@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Appointments - Randevu Client</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .appointments-list {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .appointment-item {
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .appointment-item:last-child {
+            border-bottom: none;
+        }
+        
+        .appointment-info h3 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+        
+        .appointment-info p {
+            color: #666;
+            margin-bottom: 0.25rem;
+        }
+        
+        .appointment-status {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .status-confirmed {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-cancelled {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+        }
+        
+        .empty-state h3 {
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>My Appointments</h1>
+            <p>View and manage your scheduled appointments</p>
+        </header>
+        
+        <main>
+            <a href="index.html" class="back-link">← Back to Home</a>
+            
+            <div class="appointments-list" id="appointmentsList">
+                <!-- Sample appointments - in a real app, this would be loaded from a server -->
+                <div class="appointment-item">
+                    <div class="appointment-info">
+                        <h3>Health Checkup</h3>
+                        <p><strong>Date:</strong> March 25, 2024</p>
+                        <p><strong>Time:</strong> 10:00 AM</p>
+                        <p><strong>Doctor:</strong> Dr. Smith</p>
+                    </div>
+                    <div class="appointment-status status-confirmed">Confirmed</div>
+                </div>
+                
+                <div class="appointment-item">
+                    <div class="appointment-info">
+                        <h3>Consultation</h3>
+                        <p><strong>Date:</strong> March 28, 2024</p>
+                        <p><strong>Time:</strong> 2:00 PM</p>
+                        <p><strong>Doctor:</strong> Dr. Johnson</p>
+                    </div>
+                    <div class="appointment-status status-pending">Pending</div>
+                </div>
+                
+                <div class="appointment-item">
+                    <div class="appointment-info">
+                        <h3>Follow-up</h3>
+                        <p><strong>Date:</strong> April 2, 2024</p>
+                        <p><strong>Time:</strong> 11:00 AM</p>
+                        <p><strong>Doctor:</strong> Dr. Smith</p>
+                    </div>
+                    <div class="appointment-status status-confirmed">Confirmed</div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 2rem;">
+                <button class="btn" onclick="location.href='booking.html'">Book New Appointment</button>
+            </div>
+        </main>
+        
+        <footer>
+            <p>&copy; 2024 Randevu Client. All rights reserved.</p>
+        </footer>
+    </div>
+    
+    <script src="script.js"></script>
+    <script>
+        // In a real application, this would fetch appointments from a server
+        function loadAppointments() {
+            const appointmentsList = document.getElementById('appointmentsList');
+            
+            // If no appointments exist, show empty state
+            if (appointmentsList.children.length === 0) {
+                appointmentsList.innerHTML = `
+                    <div class="empty-state">
+                        <h3>No Appointments Yet</h3>
+                        <p>You haven't booked any appointments yet.</p>
+                        <button class="btn" onclick="location.href='booking.html'" style="margin-top: 1rem;">Book Your First Appointment</button>
+                    </div>
+                `;
+            }
+        }
+        
+        // Load appointments when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // loadAppointments(); // Uncomment this if you want to show empty state initially
+        });
+    </script>
+</body>
+</html>
